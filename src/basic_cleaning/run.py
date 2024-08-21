@@ -36,6 +36,9 @@ def go(args):
     # clean data
     logging.info(f'''Cleaning data: min_price={args.min_price}, max_price={args.max_price}''')
     df = df[df['price'].between(args.min_price, args.max_price)].reset_index(drop=True)
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+    df = df.reset_index(drop=True)
 
     # Save the cleaned data
     logging.info("Saving cleaned data")
